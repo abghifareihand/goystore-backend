@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('transaction_number');
             $table->text('address')->nullable();
             $table->float('shipping_price')->default(0);
             $table->float('total_price')->default(0);
