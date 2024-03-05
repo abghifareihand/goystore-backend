@@ -95,4 +95,14 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function fetch(Request $request)
+    {
+        return response()->json([
+            'code' => 200,
+            'success' => true,
+            'message' => 'Data profile user berhasil diambil',
+            'data' => $request->user()
+        ]);
+    }
 }
