@@ -52,7 +52,7 @@ class UserController extends Controller
             return response()->json([
                 'code' => 200,
                 'success' => true,
-                'message' => 'Register Success',
+                'message' => 'Register success',
                 'data' => [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
@@ -68,7 +68,6 @@ class UserController extends Controller
             ], 500);
         }
     }
-
 
     public function login(Request $request)
     {
@@ -97,7 +96,7 @@ class UserController extends Controller
             return response()->json([
                 'code' => 200,
                 'success' => true,
-                'message' => 'Login Success',
+                'message' => 'Login success',
                 'data' => [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
@@ -145,20 +144,21 @@ class UserController extends Controller
         return response()->json([
             'code' => 200,
             'success' => true,
-            'message' => 'User profile updated successfully.'
+            'message' => 'User profile updated successfully.',
+            'data' => $user
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+
+        $user = $request->user();
+        $user->currentAccessToken()->delete();
+
+        return response()->json([
+            'code' => 200,
+            'success' => true,
+            'message' => 'Logout success'
         ]);
     }
 }
-
-
-// $data = $request->all();
-
-
-// $user = Auth::user();
-// $user->update($data);
-
-// return response()->json([
-//     'code' => 200,
-//     'success' => true,
-//     'message' => 'Data profile berhasil di update',
-// ]);
