@@ -73,7 +73,7 @@ class ProductController extends Controller
 
         return ResponseFormatter::success(
             $product->paginate($limit),
-            'Data produk berhasil diambil'
+            'Data list produk berhasil diambil'
         );
     }
 }
