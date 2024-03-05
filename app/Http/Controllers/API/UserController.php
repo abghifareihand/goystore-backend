@@ -9,31 +9,46 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Rules\Password;
 
 class UserController extends Controller
 {
+
     public function register(Request $request)
     {
-        try {
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'username' => ['required', 'string', 'max:255', 'unique:users'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'phone' => ['required', 'string', 'max:255'],
-                'password' => ['required', 'string'],
-            ]);
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string'],
+        ]);
 
-            User::create([
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'success' => false,
+                'message' => $validator->errors()->first(),
+            ], 422);
+        }
+
+        try {
+            // If validation passes, create a new user
+            $user = User::create([
                 'name' => $request->name,
                 'username' => $request->username,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
             ]);
-            $user = User::where('email', $request->email)->first();
+
+            // Generate access token for the new user
             $token = $user->createToken('auth_token')->plainTextToken;
 
+            // Return success response with access token and user data
             return response()->json([
                 'code' => 200,
                 'success' => true,
@@ -45,6 +60,7 @@ class UserController extends Controller
                 ]
             ]);
         } catch (\Exception $error) {
+            // Handle any exceptions that occur during user creation
             return response()->json([
                 'code' => 500,
                 'success' => false,
@@ -52,6 +68,7 @@ class UserController extends Controller
             ], 500);
         }
     }
+
 
     public function login(Request $request)
     {
@@ -105,4 +122,43 @@ class UserController extends Controller
             'data' => $request->user()
         ]);
     }
+
+    public function updateProfile(Request $request)
+    {
+
+        $rules = [
+            'email' => 'string|email|max:255|unique:users',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'success' => false,
+                'message' => $validator->errors()->first(),
+            ], 422);
+        }
+
+        // Validasi berhasil, lanjutkan dengan pembaruan profil pengguna
+        $user = $request->user();
+        $user->update();
+
+        return response()->json([
+            'code' => 200,
+            'success' => true,
+            'message' => 'User profile updated successfully.'
+        ]);
+    }
 }
+
+
+// $data = $request->all();
+
+
+// $user = Auth::user();
+// $user->update($data);
+
+// return response()->json([
+//     'code' => 200,
+//     'success' => true,
+//     'message' => 'Data profile berhasil di update',
+// ]);
