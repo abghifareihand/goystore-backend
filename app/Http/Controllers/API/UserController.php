@@ -44,11 +44,11 @@ class UserController extends Controller
                     'user' => $user
                 ]
             ]);
-        } catch (Exception $error) {
+        } catch (\Exception $error) {
             return response()->json([
                 'code' => 500,
                 'success' => false,
-                'message' => 'Something went wrong',
+                'message' => $error->getMessage(),
             ], 500);
         }
     }
@@ -87,11 +87,11 @@ class UserController extends Controller
                     'user' => $user
                 ]
             ]);
-        } catch (Exception $error) {
+        } catch (\Exception $error) {
             return response()->json([
                 'code' => 500,
                 'success' => false,
-                'message' => 'Something went wrong',
+                'message' => $error->getMessage(),
             ], 500);
         }
     }

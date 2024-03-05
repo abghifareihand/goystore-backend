@@ -16,7 +16,7 @@ class ProductCategoryController extends Controller
         // filter product by limit
         $limit = $request->input('limit');
         // filter product by name
-        $name = $request->input('id');
+        $name = $request->input('name');
         // filter product by show_product
         $show_product = $request->input('show_product');
 
@@ -53,8 +53,7 @@ class ProductCategoryController extends Controller
             'code' => 200,
             'success' => true,
             'message' => 'Data list kategori produk berhasil diambil',
-            'data' =>$category->paginate($limit),
-
+            'data' =>$category->get(),
         ]);
     }
 }
