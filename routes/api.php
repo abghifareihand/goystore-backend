@@ -26,3 +26,4 @@ Route::get('categories', [ProductCategoryController::class, 'all']);
 
 // register and login user
 Route::post('register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);

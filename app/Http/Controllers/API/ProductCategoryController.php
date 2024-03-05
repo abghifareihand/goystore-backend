@@ -25,16 +25,18 @@ class ProductCategoryController extends Controller
             $category = ProductCategory::with(['products'])->find($id);
 
             if ($category) {
-                return ResponseFormatter::success(
-                    $category,
-                    'Data kategori produk berhasil diambil'
-                );
+                return response()->json([
+                    'code' => 200,
+                    'success' => true,
+                    'message' => 'Data kategori produk berhasil diambil',
+                    'data' => $category
+                ]);
             } else {
-                return ResponseFormatter::error(
-                    null,
-                    'Data kategori produk gagal diambil',
-                    404
-                );
+                return response()->json([
+                    'code' => 404,
+                    'success' => false,
+                    'message' => 'Data kategori produk gagal diambil',
+                ], 404);
             }
         }
 
@@ -47,9 +49,12 @@ class ProductCategoryController extends Controller
             $category->with('products');
         }
 
-        return ResponseFormatter::success(
-            $category->paginate($limit),
-            'Data list kategori produk berhasil diambil'
-        );
+        return response()->json([
+            'code' => 200,
+            'success' => true,
+            'message' => 'Data list kategori produk berhasil diambil',
+            'data' =>$category->paginate($limit),
+
+        ]);
     }
 }

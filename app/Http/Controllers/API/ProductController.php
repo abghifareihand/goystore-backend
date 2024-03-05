@@ -33,16 +33,18 @@ class ProductController extends Controller
             $product = Product::with(['category', 'galleries'])->find($id);
 
             if ($product) {
-                return ResponseFormatter::success(
-                    $product,
-                    'Data produk berhasil diambil'
-                );
+                return response()->json([
+                    'code' => 200,
+                    'success' => true,
+                    'message' => 'Data produk berhasil diambil',
+                    'data' => $product
+                ]);
             } else {
-                return ResponseFormatter::error(
-                    null,
-                    'Data produk gagal diambil',
-                    404
-                );
+                return response()->json([
+                    'code' => 404,
+                    'success' => false,
+                    'message' => 'Data produk gagal diambil',
+                ], 404);
             }
         }
 
@@ -71,9 +73,11 @@ class ProductController extends Controller
             $product->where('categories', '<=', $categories);
         }
 
-        return ResponseFormatter::success(
-            $product->paginate($limit),
-            'Data list produk berhasil diambil'
-        );
+        return response()->json([
+            'code' => 200,
+            'success' => true,
+            'message' => 'Data list produk berhasil diambil',
+            'data' => $product->paginate($limit),
+        ]);
     }
 }
