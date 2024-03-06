@@ -16,9 +16,8 @@ class Transaction extends Model
         'user_id',
         'transaction_number',
         'address',
-        'shipping_price',
         'total_price',
-        'status',
+        'payment_status',
         'payment_url',
     ];
 

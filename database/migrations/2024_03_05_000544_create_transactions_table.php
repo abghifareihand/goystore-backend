@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('transaction_number');
-            $table->text('address')->nullable();
-            $table->decimal('shipping_price', 10, 2)->default(0);
-            $table->decimal('total_price', 10, 2)->default(0);
+            $table->text('address');
+            $table->float('total_price');
             $table->string('payment_status')->default('PENDING');
             $table->text('payment_url')->nullable();
             $table->timestamps();
