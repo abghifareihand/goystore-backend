@@ -35,5 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [UserController::class, 'logout']);
 
     // get transaction
-    Route::get('transaction', [TransactionController::class, 'all']);
+    Route::get('transactions', [TransactionController::class, 'all']);
+    // checkout
+    Route::post('checkout', [TransactionController::class, 'checkout']);
 });
