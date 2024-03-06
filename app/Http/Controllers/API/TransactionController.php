@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use App\Models\TransactionItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,6 +50,41 @@ class TransactionController extends Controller
             'success' => true,
             'message' => 'Data list transaksi berhasil diambil',
             'data' => $transaction->get(),
+        ]);
+    }
+
+    public function checkout(Request $request)
+    {
+        $request->validate([
+            'items' => 'required|array', // validasi items array
+            'items.*.id' => 'exists:products,id', // validasi dasi yg ada di dalam items
+            'total_price' => 'required',
+        ]);
+
+        $transaction = Transaction::create([
+            'user_id' => $request->user()->id,
+            'transaction_number' => 'GOYTRX' . time(),
+            'address' => $request->address,
+            'total_price' => $request->total_price,
+            'shipping_price' => $request->shipping_price,
+            'status' => 'PENDING',
+            'payment_url' => now(),
+        ]);
+
+        foreach ($request->items as $product) {
+            TransactionItem::create([
+                'user_id' => $request->user()->id,
+                'transaction_id'=> $transaction->id,
+                'product_id' => $product['id'],
+                'quantity'=> $product['quantity'],
+            ]);
+        }
+
+        return response()->json([
+            'code' => 200,
+            'success' => true,
+            'message' => 'Transaksi berhasil',
+            'data' => $transaction->load('items.product')
         ]);
     }
 }
