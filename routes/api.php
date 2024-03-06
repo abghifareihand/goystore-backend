@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CallbackController;
 use App\Http\Controllers\API\ProductCategoryController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\TransactionController;
@@ -18,14 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// get product and category
-Route::get('products', [ProductController::class, 'all']);
-Route::get('categories', [ProductCategoryController::class, 'all']);
-
-// register and login user
-Route::post('register', [UserController::class, 'register']);
-Route::post('login', [UserController::class, 'login']);
-
 Route::middleware('auth:sanctum')->group(function () {
     // get user
     Route::get('user', [UserController::class, 'fetch']);
@@ -39,3 +32,14 @@ Route::middleware('auth:sanctum')->group(function () {
     // checkout
     Route::post('checkout', [TransactionController::class, 'checkout']);
 });
+
+// get product and category
+Route::get('products', [ProductController::class, 'all']);
+Route::get('categories', [ProductCategoryController::class, 'all']);
+
+// register and login user
+Route::post('register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);
+
+// callback midtrans
+Route::post('midtrans/callback', [CallbackController::class, 'callback']);
