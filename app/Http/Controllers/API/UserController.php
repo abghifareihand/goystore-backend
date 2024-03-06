@@ -149,9 +149,41 @@ class UserController extends Controller
         ]);
     }
 
+    public function updatePhoto(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|image|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'code' => 401,
+                'success' => false,
+                'message' => $validator->errors(),
+            ], 401);
+        }
+
+        if ($request->file('file')) {
+            $photo_path = $request->file->store('assets/user', 'public');
+
+            // Simpan foto ke database (url)
+            $user = $request->user();
+            $user->profile_photo_path = $photo_path;
+            $user->update();
+
+            return response()->json([
+                'code' => 200,
+                'success' => true,
+                'message' => 'Upload photo success',
+                'photo_path' => $photo_path
+            ]);
+
+        }
+    }
+
+
     public function logout(Request $request)
     {
-
         $user = $request->user();
         $user->currentAccessToken()->delete();
 

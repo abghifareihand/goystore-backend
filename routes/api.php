@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [UserController::class, 'fetch']);
     // update user
     Route::post('user', [UserController::class, 'updateProfile']);
+    // upload photo
+    Route::post('user/photo', [UserController::class, 'updatePhoto']);
     // logout user
     Route::post('logout', [UserController::class, 'logout']);
 
