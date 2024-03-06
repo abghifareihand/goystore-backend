@@ -63,11 +63,11 @@ class TransactionController extends Controller
 
         $transaction = Transaction::create([
             'user_id' => $request->user()->id,
-            'transaction_number' => 'GOYTRX' . time(),
+            'transaction_number' => 'TRX' . time(),
             'address' => $request->address,
             'total_price' => $request->total_price,
             'shipping_price' => $request->shipping_price,
-            'status' => 'PENDING',
+            'payment_status' => 'PENDING',
             'payment_url' => now(),
         ]);
 
