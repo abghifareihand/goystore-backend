@@ -26,32 +26,30 @@
                     </thead>
                     <tbody>
                         @forelse($user as $item)
-                            @if ($item->roles != 'ADMIN')
-                                <tr>
-                                    <td class="px-6 py-4 text-center">{{ $item->id }}</td>
-                                    <td class="px-6 py-4">{{ $item->name }}</td>
-                                    <td class="px-6 py-4">{{ $item->email }}</td>
-                                    <td class="px-6 py-4 text-center">{{ $item->roles }}</td>
-                                    <td class="px-6 py-4 text-center">
-                                        <a href="{{ route('users.edit', $item->id) }}"
-                                            class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 sm:rounded-lg">
-                                            Edit
-                                        </a>
-                                        <form action="{{ route('users.destroy', $item->id) }}" method="POST"
-                                            class="inline-block">
-                                            {!! method_field('delete') . csrf_field() !!}
-                                            <button type="submit"
-                                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 inline-block sm:rounded-lg">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endif
+                            <tr>
+                                <td class="px-6 py-4 text-center">{{ $item->id }}</td>
+                                <td class="px-6 py-4">{{ $item->name }}</td>
+                                <td class="px-6 py-4">{{ $item->email }}</td>
+                                <td class="px-6 py-4">{{ $item->roles }}</td>
+                                <td class="px-6 py-4 text-center">
+                                    <a href="{{ route('users.edit', $item->id) }}"
+                                        class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 sm:rounded-lg">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('users.destroy', $item->id) }}" method="POST"
+                                        class="inline-block">
+                                        {!! method_field('delete') . csrf_field() !!}
+                                        <button type="submit"
+                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 inline-block sm:rounded-lg">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                         @empty
                             <tr>
                                 <td colspan="6" class="border text-center p-5">
-                                    Data Tidak Ditemukan
+                                    Data User Tidak Ditemukan
                                 </td>
                             </tr>
                         @endforelse
