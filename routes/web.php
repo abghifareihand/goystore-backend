@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -27,4 +28,5 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', 'admin'])->group(functio
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('product', ProductController::class);
+    Route::resource('category', ProductCategoryController::class);
 });

@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         $product = Product::paginate(10);
-        return view('product.index', [
+        return view('pages.product.index', [
             'product' => $product,
 
         ]);
@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = ProductCategory::all();
-        return view('product.create', compact('categories'));
+        return view('pages.product.create', compact('categories'));
     }
 
     /**
@@ -56,7 +56,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = ProductCategory::all();
-        return view('product.edit', [
+        return view('pages.product.edit', [
             'item' => $product,
             'categories' => $categories
         ]);
