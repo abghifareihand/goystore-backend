@@ -32,6 +32,10 @@
                             <td class="px-6 py-4">{{ $item->category->name }}</td>
                             <td class="px-6 py-4">IDR {{ number_format($item->price) }}</td>
                             <td class="px-6 py-4 text-center">
+                                <a href="{{ route('product.gallery.index', $item->id) }}"
+                                    class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 sm:rounded-lg">
+                                    Gallery
+                                </a>
                                 <a href="{{ route('product.edit', $item->id) }}"
                                     class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 sm:rounded-lg">
                                     Edit

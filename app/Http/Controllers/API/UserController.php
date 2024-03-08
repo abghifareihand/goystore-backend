@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Rules\Password;
 
@@ -164,20 +165,22 @@ class UserController extends Controller
         }
 
         if ($request->file('file')) {
-            $photo_path = $request->file->store('assets/user', 'public');
+            $photoPath = $request->file('file')->store('assets/user', 'public');
 
-            // Simpan foto ke database (url)
+            // Mendapatkan URL dari foto yang disimpan
+            $url = url('') . Storage::url($photoPath);
+
+            // Simpan URL foto ke database
             $user = $request->user();
-            $user->profile_photo_path = $photo_path;
+            $user->profile_photo_path = $url;
             $user->update();
 
             return response()->json([
                 'code' => 200,
                 'success' => true,
                 'message' => 'Upload photo success',
-                'photo_path' => $photo_path
+                'photo_url' => $url
             ]);
-
         }
     }
 

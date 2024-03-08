@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductGalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,10 @@ Route::get('/', function () {
 });
 
 // Dashboard
-Route::prefix('dashboard')->middleware(['auth:sanctum', 'admin'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('product', ProductController::class);
     Route::resource('category', ProductCategoryController::class);
+    Route::resource('product.gallery', ProductGalleryController::class);
 });
