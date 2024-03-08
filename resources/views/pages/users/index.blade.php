@@ -21,6 +21,7 @@
                             <th class="px-6 py-3">Name</th>
                             <th class="px-6 py-3">Email</th>
                             <th class="px-6 py-3">Roles</th>
+                            <th class="px-6 py-3">Date</th>
                             <th class="px-6 py-3">Action</th>
                         </tr>
                     </thead>
@@ -31,6 +32,7 @@
                                 <td class="px-6 py-4">{{ $item->name }}</td>
                                 <td class="px-6 py-4">{{ $item->email }}</td>
                                 <td class="px-6 py-4">{{ $item->roles }}</td>
+                                <td class="px-6 py-4">{{ $item->created_at }}</td>
                                 <td class="px-6 py-4 text-center">
                                     <a href="{{ route('users.edit', $item->id) }}"
                                         class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 sm:rounded-lg">
