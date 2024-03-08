@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGalleryController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,6 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('product', ProductController::class);
     Route::resource('category', ProductCategoryController::class);
+    Route::resource('transaction', TransactionController::class);
     Route::resource('product.gallery', ProductGalleryController::class);
 });
