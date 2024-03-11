@@ -24,7 +24,7 @@ class TransactionController extends Controller
 
         if ($id) {
             // relasi agar muncul items.product di response json
-            $transaction = Transaction::with(['items.product'])->find($id);
+            $transaction = Transaction::with(['items.product', 'items.product.galleries'])->find($id);
 
             if ($transaction) {
                 return response()->json([
@@ -42,7 +42,7 @@ class TransactionController extends Controller
             }
         }
 
-        $transaction = Transaction::with(['items.product'])->where('user_id', Auth::user()->id);
+        $transaction = Transaction::with(['items.product', 'items.product.galleries'])->where('user_id', Auth::user()->id);
 
         if ($status) {
             $transaction->where('status', $status);

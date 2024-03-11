@@ -42,4 +42,9 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionItem::class, 'transaction_id', 'id');
     }
+
+    public function galleries()
+{
+    return $this->hasMany(ProductGallery::class, 'product_id', 'id');
+}
 }
