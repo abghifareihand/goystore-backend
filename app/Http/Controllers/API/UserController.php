@@ -127,18 +127,6 @@ class UserController extends Controller
     {
         $data = $request->all();
 
-        $rules = [
-            'email' => 'string|email|max:255|unique:users',
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return response()->json([
-                'code' => 422,
-                'success' => false,
-                'message' => $validator->errors()->first(),
-            ], 422);
-        }
-
         // Validasi berhasil, lanjutkan dengan pembaruan profil pengguna
         $user = $request->user();
         $user->update($data);
