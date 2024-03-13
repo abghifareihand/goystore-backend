@@ -69,9 +69,8 @@ class ProductController extends Controller
             $product->where('price', '<=', $price_to);
         }
 
-        if ($categories) {
-            $product->where('categories', '<=', $categories);
-        }
+        if($categories)
+            $product->where('categories_id', $categories);
 
         return response()->json([
             'code' => 200,
