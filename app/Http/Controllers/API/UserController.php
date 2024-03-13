@@ -125,6 +125,7 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $data = $request->all();
 
         $rules = [
             'email' => 'string|email|max:255|unique:users',
@@ -140,7 +141,7 @@ class UserController extends Controller
 
         // Validasi berhasil, lanjutkan dengan pembaruan profil pengguna
         $user = $request->user();
-        $user->update();
+        $user->update($data);
 
         return response()->json([
             'code' => 200,
