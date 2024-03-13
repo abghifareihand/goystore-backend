@@ -108,7 +108,7 @@ class TransactionController extends Controller
         $midtrans = [
             'transaction_details' => [
                 'order_id' => $transaction->transaction_number,
-                'gross_amount' => $transaction->total_price + 24500,
+                'gross_amount' => (int) $transaction->total_price,
             ],
             'item_details' => $items_details,
             'customer_details' => [

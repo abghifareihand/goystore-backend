@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'description' => 'required',
-            'price' => 'integer',
+            'price' => 'required',
             'categories_id' => 'required|exists:product_categories,id'
         ];
     }
